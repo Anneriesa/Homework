@@ -1,116 +1,19 @@
-public class Laptop {
-    private String brand;
-    private int ram;
-    private int storage;
-    private String os;
-    private String color;
-
-    // конструктор
-    public Laptop(String brand, int ram, int storage, String os, String color) {
-        this.brand = brand;
-        this.ram = ram;
-        this.storage = storage;
-        this.os = os;
-        this.color = color;
-    }
-
-    // геттеры и сеттеры 
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public int getRam() {
-        return ram;
-    }
-
-    public void setRam(int ram) {
-        this.ram = ram;
-    }
-
-    public int getStorage() {
-        return storage;
-    }
-
-    public void setStorage(int storage) {
-        this.storage = storage;
-    }
-
-    public String getOs() {
-        return os;
-    }
-
-    public void setOs(String os) {
-        this.os = os;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    // Переопределение метода toString для удобного вывода информации о ноутбуке
-    @Override
-    public String toString() {
-        return "Brand: " + brand + ", RAM: " + ram + "GB, Storage: " + storage + "GB, OS: " + os + ", Color: " + color;
-    }
-}
-Laptop laptop1 = new Laptop("Lenovo", 8, 512, "Windows 10", "Gray");
-Laptop laptop2 = new Laptop("HP", 16, 1024, "Windows 10", "Silver");
-Laptop laptop3 = new Laptop("Dell", 12, 512, "Ubuntu", "Black");
-import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
-        Set<Laptop> laptops = new HashSet<>();
-        laptops.add(laptop1);
-        laptops.add(laptop2);
-        laptops.add(laptop3);
+        ToyStore store = new ToyStore();
 
-        Map<String, Object> filters = new HashMap<>();
-        filters.put("ram", 8);
-        filters.put("storage", 512);
-        filters.put("os", "Windows 10");
+        // add some toys
+        store.addToy(1, "Toy 1", 10, 20);
+        store.addToy(2, "Toy 2", 5, 10);
+        store.addToy(3, "Toy 3", 20, 70);
 
-        filterLaptops(laptops, filters);
+        // set the weight of a toy
+        store.setToyWeight(2, 30);
 
-    }
+        // play the game
+        store.play();
 
-    public static void filterLaptops(Set<Laptop> laptops, Map<String, Object> filters) {
-        for (Laptop laptop : laptops) {
-            boolean passFilter = true;
-            for (Map.Entry<String, Object> entry : filters.entrySet()) {
-                String key = entry.getKey();
-                Object value = entry.getValue();
-                switch (key) {
-                    case "ram":
-                        if (laptop.getRam() < (int) value) {
-                            passFilter = false;
-                        }
-                        break;
-                    case "storage":
-                        if (laptop.getStorage() < (int) value) {
-                            passFilter = false;
-                        }
-                        break;
-                    case "os":
-                        if (!laptop.getOs().equals(value)) {
-                            passFilter = false;
-                        }
-                        break;
-                    // Можно будет добавить другие категории по тому же принципу 
-                }
-            }
-            if (passFilter) {
-                System.out.println(laptop);
-            }
+        // get the prize toy
+        try {
+            store.getPrizeToy();
         }
-    }
-}
